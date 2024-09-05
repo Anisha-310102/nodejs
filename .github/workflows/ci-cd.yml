@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, your-label]  # Use your self-hosted runner with a specific label
+    runs-on: [self-hosted, my-runner]  # Use your self-hosted runner with a specific label
 
     steps:
     - name: Checkout code
@@ -20,7 +20,7 @@ jobs:
       run: docker compose build
 
   deploy:
-    runs-on: [self-hosted, your-label]  # Use your self-hosted runner with a specific label
+    runs-on: [self-hosted, my-runner]  # Use your self-hosted runner with a specific label
     needs: build  # Ensure deploy runs after build
 
     steps:
