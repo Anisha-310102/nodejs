@@ -18,7 +18,7 @@ jobs:
 
     - name: Rsync code to remote server
       run: |
-        rsync -ravz ./ /home/anisha/nodeja-app 
+        rsync -ravz ./ /home/anisha/nodeja-app
 
   build:
     runs-on: self-hosted  
@@ -26,7 +26,9 @@ jobs:
 
     steps:
     - name: Build Docker images
-      run: docker-compose build
+      run: |
+        cd /home/anisha/nodeja-app
+        sudo docker-compose build
 
   deploy:
     runs-on: self-hosted   
@@ -34,7 +36,10 @@ jobs:
 
     steps:
     - name: Deploy with Docker Compose
-      run: docker-compose up -d
+      run: |
+        cd /home/anisha/nodeja-app
+        sudo docker-compose up -d
+
 
 
 
