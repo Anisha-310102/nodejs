@@ -22,8 +22,8 @@ jobs:
 
     - name: Set correct permissions on the server
       run: |
-        sudo chown -R anisha:anisha /home/anisha/nodeja-app
-        sudo chmod -R 755 /home/anisha/nodeja-app
+        chown -R anisha:anisha /home/anisha/nodeja-app
+        chmod -R 755 /home/anisha/nodeja-app
 
   build:
     runs-on: self-hosted  
@@ -33,7 +33,7 @@ jobs:
     - name: Build Docker images
       run: |
         cd /home/anisha/nodeja-app
-        sudo docker-compose build
+        docker-compose build
 
   deploy:
     runs-on: self-hosted   
@@ -43,7 +43,7 @@ jobs:
     - name: Deploy with Docker Compose
       run: |
         cd /home/anisha/nodeja-app
-        sudo docker-compose up -d
+        docker-compose up -d
 
 
 
