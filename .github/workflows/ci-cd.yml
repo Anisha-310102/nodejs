@@ -3,29 +3,39 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main  
   pull_request:
     branches:
-      - main  # Trigger on pull requests targeting the main branch
+      - main  
 
 jobs:
-  build:
-    runs-on: self-hosted # Use your self-hosted runner with a specific label
+  copy:
+    runs-on: self-hosted 
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Rsync code to remote server
+      run: |
+        rsync -ravz ./ /home/anisha/nodeja-app 
+
+  build:
+    runs-on: self-hosted  
+    needs: copy 
+
+    steps:
     - name: Build Docker images
       run: docker compose build
 
   deploy:
-    runs-on: self-hosted   # Use your self-hosted runner with a specific label
-    needs: build  # Ensure deploy runs after build
+    runs-on: self-hosted   
+    needs: build  
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Deploy with Docker Compose
       run: docker compose up -d
+
+
+
+
